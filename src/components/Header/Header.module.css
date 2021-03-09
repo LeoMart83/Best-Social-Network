@@ -1,0 +1,14 @@
+.header {
+    grid-area: h;
+    background-color: #ffc400;
+    /* text-align: center; */
+
+    }
+
+.header img {
+    width: 10px;
+    }
+
+.loginBlock{
+    float: right;
+}
