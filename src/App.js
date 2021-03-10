@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route} from "react-router-dom";
 import Navbar from './components/Navbar/Navbar';
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
@@ -12,7 +12,7 @@ import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/Common/Preloader/Preloader";
 import store from "./redux/redux-store";
-import {withSuspense} from "./hoc/withSuspnse";
+import {withSuspense} from "./hoc/withSuspense";
 
 
 //import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -31,7 +31,7 @@ class App extends Component {
         }
 
         return (
-            <BrowserRouter>
+            <HashRouter /* basename={process.env.PUBLIC_URL} */>
                 <div className='app-wrapper'>
                     <HeaderContainer/>
                     <Navbar/>
@@ -58,7 +58,7 @@ class App extends Component {
                         <Route path='/settings' component={Settings}/>
                     </div>
                 </div>
-            </BrowserRouter>)
+            </HashRouter>)
     }
 }
 
