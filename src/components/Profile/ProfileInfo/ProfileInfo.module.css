@@ -5,5 +5,14 @@
 .profilePicture {
     width: 400px;
     height: 400px;
+}
 
+.contact {
+    padding-left: 10px;
+}
+
+.formSummuryError{
+    border: red 1px solid;
+    padding: 5px;
+    color: red;
 }

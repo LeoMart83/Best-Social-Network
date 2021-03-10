@@ -22,7 +22,10 @@ export const profileAPI = {
         const formData = new FormData();
         formData.append('image', photoFile);
         return instance.put(`profile/photo` ,formData)
-    }
+    },
+    saveProfile(profile) {
+        return instance.put(`profile`, profile);
+    },
 }
 
 export const authAPI = {
