@@ -1,14 +1,26 @@
 .header {
     grid-area: h;
+    max-height: 75px;
     background-color: #ffc400;
-    /* text-align: center; */
-
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    position: relative;
     }
 
-.header img {
-    width: 10px;
+.header .logo {
+    height: 75px;
+    border-radius: 15px;
+    }
+
+.networkName{
+    vertical-align: 50%;
+    display: inline; 
+    font-size: 25px;
+    font-weight: 600;
     }
 
 .loginBlock{
-    float: right;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }

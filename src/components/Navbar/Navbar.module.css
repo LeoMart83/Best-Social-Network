@@ -1,18 +1,29 @@
 .nav{
     grid-area: n;
-    background-color: coral;
-    padding: 20px;
+    background-color: rgba(255, 127, 80);
+    height: 300px;
+    font-size: 23px;
+    font-weight: 500;
+    border-bottom-left-radius: 15px;
+    padding: 10px;
+    display: inline;
     }
 
+.nav img{
+    width: 15px;
+}
+
 .item a{
+    margin: 5px;
     color: white;
     text-decoration: none;
-}
+    }
 
 .item:hover {   
-background-color: black;
-}
+    background-color: rgba(0,0,0,0.3);
+    }
 
 .item a.activeLink{
-color:gold;
-}
+    color:gold;
+    }
+

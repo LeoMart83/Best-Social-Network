@@ -8,8 +8,6 @@ import {Textarea} from "../../Common/FormsControls/FormsControls";
 
 const MyPosts = React.memo(props => {
 
-    console.log("RENDERED");
-
     let {addPost, profilePage} = props;
 
     let postsElements = profilePage.posts.map(p => <Post message={p.message} likesCount={p.likesCount}

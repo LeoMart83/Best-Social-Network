@@ -10,7 +10,6 @@ let Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    debugger;
     return <div>
         {pages.map(p => {
             return <span className={currentPage === p && classes.selectedPage}

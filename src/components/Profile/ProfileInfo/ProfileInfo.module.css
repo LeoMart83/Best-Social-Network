@@ -1,10 +1,8 @@
-.descriptionBlock {
-    padding: 10px;
-}
-
 .profilePicture {
-    width: 400px;
-    height: 400px;
+    width: 250px;
+    height: 250px;
+    margin: 10px;
+    border-radius: 20%;
 }
 
 .contact {
@@ -15,4 +13,27 @@
     border: red 1px solid;
     padding: 5px;
     color: red;
+}
+
+.descriptionBlock {
+    padding: 10px;
+}
+.photoChange{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.profileInformation{
+    line-height: 1.5;
+}
+
+.profileInformation p {
+    font-size: 30px;
+    margin: 5px;
+}
+
+.profileStatus{
+    font-style: italic;
+    font-size: 20px;
+    text-align: center;
 }

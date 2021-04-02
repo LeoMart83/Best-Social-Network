@@ -16,7 +16,7 @@ const Dialogs = ({dialogsPage, addMessage}) => {
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
-                {dialogsElements}
+                {/* {dialogsElements} */}
             </div>
             <div className={classes.messages}>
                 <div> {messagesElements} </div>
