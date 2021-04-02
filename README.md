@@ -1,6 +1,6 @@
 My social network that was made according to youtube - React course 'Way of Samurai'.
 
-https://leomart83.github.io/profile
+https://leomart83.github.io/Best-Social-Network/
 
 You can register in the top-right corner. You will be redirected to the API site.
 
