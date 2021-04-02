@@ -1,5 +1,7 @@
 My social network that was made according to youtube - React course 'Way of Samurai'.
 
+https://leomart83.github.io/profile
+
 You can register in the top-right corner. You will be redirected to the API site.
 
 After creating an account you can login and edit your profile information, status and change the avatar photo.
