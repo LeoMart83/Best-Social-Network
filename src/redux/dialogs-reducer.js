@@ -3,10 +3,8 @@ import shortId from "shortid";
 const ADD_MESSAGE = 'ADD-MESSAGE';
 
 let initialState = {
-    messages: [{id: 1, message: 'WAZZAA!',},
-        {id: 2, message: 'Hi!',},
-        {id: 3, message: 'How are you?',},
-        {id: 4, message: 'Me good! You wont believe what happened to me yesterday!',}],
+    messages: [{id: 1, message: 'Hi, How are you?',},
+        {id: 2, message: 'Hello. Me good! You won\'t believe what happened to me yesterday!',}],
 
 
     dialogs: [{
