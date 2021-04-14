@@ -1,14 +1,24 @@
 import classes from './Post.module.css';
+import user from '../../../../Assets/Images/user.png'
+import {ReactComponent as Icon} from '../../../../Assets/Images/delete.svg'
+import {connect} from "react-redux";
+import {deletePostApi} from "../../../../redux/profile-reducer";
 
-const Post = (props) => {
+const Post = ({body, likes, id, deletePostApi}) => {
 
-    return <div className={classes.item}>
-        <img src='https://images-na.ssl-images-amazon.com/images/S/sgp-catalog-images/region_US/viacom-Avatar-Sea1-Full-Image_GalleryBackground-en-US-1552014700974._SX1080_.jpg' />
-        {props.message}    
-        <div>
-            <span>Likes </span> {props.likesCount}
+    return (
+        <div className={classes.item}>
+            <div className={classes.likesContainer}>
+                <img src={user} className={classes.userImg}/>
+                <span>Likes: {likes}</span>
+            </div>
+
+            <span className={classes.post}>{body}</span>
+            <Icon onClick={() => deletePostApi(id)} className={classes.deleteIcon}/>
         </div>
-    </div>
+    )
 }
 
-export default Post;
+
+
+export default connect(null, {deletePostApi})(Post);

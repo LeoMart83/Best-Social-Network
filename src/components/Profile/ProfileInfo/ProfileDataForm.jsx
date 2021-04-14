@@ -6,13 +6,14 @@ import classes from './ProfileInfo.module.css';
 
 const ProfileDataForm = ({handleSubmit, profile, error}) => {
     return <form onSubmit={handleSubmit}>
+        <div className={classes.form}>
         <div><button>save</button></div>
-        { error && <div className={classes.formSummuryError}>
+        { error && <div className={classes.formSummaryError}>
             {error}
         </div>
         }
         <div>
-            <b>Full name:</b>: {createField('Full name', 'fullName', [], Input)}
+            Full name: {createField('Full name', 'fullName', [], Input)}
         </div>
         <div>
             <b>Looking for a job:</b>: {createField('', 'lookingForAJob', [], Input, {type: 'checkbox'})}
@@ -31,6 +32,7 @@ const ProfileDataForm = ({handleSubmit, profile, error}) => {
                 <b>{key}: {createField(key, 'contacts.' + key, [], Input)}  </b>
             </div>
         })}
+        </div>
         </div>
     </form>
 }

@@ -9,7 +9,6 @@ const ProfileStatusWithHooks = (props) => {
 
     const onStatusChange = (e) => {
         setStatus(e.currentTarget.value);
-
     }
 
 

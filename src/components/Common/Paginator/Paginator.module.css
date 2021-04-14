@@ -1,5 +1,15 @@
-
 .selectedPage {
     font-weight: bold;
+}
 
+.item{
+    margin-right: 8px;
+}
+
+
+
+.paginationContainer{
+    width: 500px;
+    font-size: 22px;
+    overflow-x: scroll;
 }

@@ -8,6 +8,11 @@ const instance = axios.create({
     },
 });
 
+const postInstance = axios.create({
+    baseURL: 'https://fgxgop.deta.dev/',
+});
+
+
 export const profileAPI = {
     getProfile(userId) {
         return instance.get(`profile/` + userId)
@@ -16,7 +21,7 @@ export const profileAPI = {
         return instance.get(`profile/status/` + userId)
     },
     updateStatus(status) {
-        return instance.put(`profile/status`, {status: status});
+        return instance.put(`profile/status`, { status: status });
     },
     savePhoto(photoFile) {
         const formData = new FormData();
@@ -33,7 +38,7 @@ export const authAPI = {
         return instance.get(`auth/me`)
     },
     login(email, password, captcha = null) {
-        return instance.post(`auth/login`, {email, password, rememberMe: true, captcha})
+        return instance.post(`auth/login`, { email, password, rememberMe: true, captcha })
     },
     logout() {
         return instance.delete(`auth/login`);
@@ -65,5 +70,18 @@ export const usersAPI = {
     getProfile(userId) {
         console.log('Obsolete method, please use profileAPI object')
         return profileAPI.getProfile(userId);
+    },
+}
+
+export const postsAPI = {
+    getPosts(userId) {
+        return postInstance.get(`posts/`, {user_id: userId})
+    },
+    createPost(userId, body) {
+        return postInstance.post(`posts/`, {user_id: userId, body: body}
+        )
+    },
+    deletePost(postId) {
+        return postInstance.delete(`posts/${postId}`)
     },
 }

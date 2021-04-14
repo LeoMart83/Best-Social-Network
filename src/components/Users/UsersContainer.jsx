@@ -60,7 +60,7 @@ let mapState = (state) => {
 
 
 export default compose(
-    withAuthRedirect,
+    //withAuthRedirect,
     connect(mapState, {
         follow,
         unfollow,

@@ -10,9 +10,9 @@ let Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    return <div>
+    return <div className={classes.paginationContainer}>
         {pages.map(p => {
-            return <span className={currentPage === p && classes.selectedPage}
+            return <span className={`${currentPage === p && classes.selectedPage} ${classes.item}`}
                          onClick={(e) => {
                              onPageChanged(p);
                          }}>{p}</span>

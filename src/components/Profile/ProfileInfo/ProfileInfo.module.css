@@ -1,3 +1,4 @@
+
 .profilePicture {
     width: 250px;
     height: 250px;
@@ -9,7 +10,7 @@
     padding-left: 10px;
 }
 
-.formSummuryError{
+.formSummaryError{
     border: red 1px solid;
     padding: 5px;
     color: red;
@@ -19,8 +20,8 @@
     padding: 10px;
 }
 .photoChange{
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 400;
 }
 
 .profileInformation{

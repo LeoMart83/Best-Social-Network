@@ -58,13 +58,13 @@ const ProfileData = ({ profile, isOwner, goToEditMode }) => {
 
         </div>}
         <div>
-            <b>Full name:</b>{profile.fullName}
+            <b>Full name: </b>{profile.fullName}
         </div>
         <div>
             <b>About me:</b> {profile.aboutMe}
         </div>
         <div>
-            <b>Looking for a job:</b> {profile.lookingForAJob ? 'Yes!' : 'No.'}
+            <b>Looking for a job:</b> {profile.lookingForAJob ? 'Yes' : 'No'}
         </div>
         {profile.lookingForAJob &&
             <div>

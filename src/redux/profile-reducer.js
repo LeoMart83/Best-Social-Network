@@ -1,5 +1,5 @@
 import shortId from "shortid";
-import {profileAPI, usersAPI} from "../api/api";
+import {postsAPI, profileAPI, usersAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'ADD-POST';
@@ -7,24 +7,30 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = 'DELETE_POST';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
+const SET_POSTS ='SET_POSTS';
 
 let initialState = {
-    posts: [
-        {id: 1, message: 'Hi, how are you today?', likesCount: 12,},
-        {id: 2, message: 'It\'s my first post1!', likesCount: 23,},],
-    newPostText: '',
+    posts: [],
     profile: null,
     status: '',
 };
 
+
+
 const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
+        case SET_POSTS:
+            return {
+                ...state,
+                posts: [...action.posts]
+            }
         case ADD_POST:
             return {
+                ...state,
                 posts: [
-                    ...state.posts,
-                    {id: shortId.generate(), message: action.newPostText, likesCount: 0}
+                    {key: action.postData.key, body: action.postData.body, likes: action.postData.likes},
+                    ...state.posts
                 ],
             }
         case SET_USER_PROFILE:
@@ -32,7 +38,7 @@ const profileReducer = (state = initialState, action) => {
         case SET_STATUS:
             return {...state, status: action.status}
         case DELETE_POST:
-            return {...state, posts: state.posts.filter(p => p.id != action.postId)}
+            return {...state, posts: state.posts.filter(p => p.key !== action.postId)}
         case SAVE_PHOTO_SUCCESS:
             return {...state, profile: {...state.profile, photos: action.photos}}
         default:
@@ -40,7 +46,9 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const addPost = (newPostText) => ({type: ADD_POST, newPostText});
+export const setPosts = (posts) => ({type: SET_POSTS, posts}); // Works with requestPosts
+
+export const addPost = (postData) => ({type: ADD_POST, postData});
 export const setProfile = (profile) => ({type: SET_USER_PROFILE, profile});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 export const deletePost = (postId) => ({type: DELETE_POST, postId});
@@ -84,6 +92,27 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
         dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}));
         return Promise.reject(response.data.messages[0]);
     }
+}
+
+
+// requestPosts thunk, для получения постов.
+export const requestPosts = () => async (dispatch, getState) => {
+    //const userId = getState().auth.userId;
+    const userId = 15340;
+    const response = await postsAPI.getPosts(userId);
+    dispatch(setPosts(response.data))
+}
+
+export const createPostApi = (body) => async (dispatch, getState) => {
+    //const userId = getState().auth.userId;
+    const userId = 15340;
+    const response = await postsAPI.createPost(userId, body);
+    dispatch(addPost(response.data));
+}
+
+export const deletePostApi = (postId) => async (dispatch) => {
+    await postsAPI.deletePost(postId);
+    dispatch(deletePost(postId));
 }
 
 export default profileReducer;

@@ -11,11 +11,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = {
-    addMessage,
-}
-
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps, {addMessage}),
     //withAuthRedirect
 )(Dialogs);

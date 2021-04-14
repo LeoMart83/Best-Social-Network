@@ -6,7 +6,6 @@ let initialState = {
     messages: [{id: 1, message: 'Hi, How are you?',},
         {id: 2, message: 'Hello. Me good! You won\'t believe what happened to me yesterday!',}],
 
-
     dialogs: [{
         id: 1,
         name: 'Daniil',
@@ -31,19 +30,15 @@ const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE:
             return {
-                ...state,
-                messages: [
-                    ...state.messages,
-                    {id: shortId.generate(), message: action.newMessageText}
-                ]
+                ...state, messages: [...state.messages, {id: shortId.generate(), message: action.newMessageText}]
             }
         default:
             return state;
     }
 }
 
+// addMessage - actionCreator
 export const addMessage = (newMessageText) => {
-    console.log(newMessageText)
     return {type: ADD_MESSAGE, newMessageText}
 };
 

@@ -1,17 +1,19 @@
 import React from 'react';
 import Paginator from "../Common/Paginator/Paginator";
 import User from "./User";
+import classes from './Users.module.css'
 
 
 let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users, ...props}) => {
 
 
-    return <div>
-        <div>
+    return <div className={classes.usersContainer}>
+
             <Paginator currentPage={currentPage} totalUsersCount={totalUsersCount} pageSize={pageSize}
                        onPageChanged={onPageChanged}
-            /></div>
-        <div>
+            />
+
+        <div className={classes.userContainer}>
             {
                 users.map(u => <User user={u}
                                      key={u.id}

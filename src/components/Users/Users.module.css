@@ -1,4 +1,13 @@
+.userContainer{
+    width: 100%;
+    margin: 12px;
+}
 
+.usersContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .usersPhoto{
     height: 100px;

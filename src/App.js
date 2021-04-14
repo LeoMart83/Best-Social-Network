@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route } from "react-router-dom";
 import Navbar from './components/Navbar/Navbar';
-// import News from "./components/News/News";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
@@ -20,7 +19,7 @@ const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileCo
 class App extends Component {
 
     catchAllUnhandledErrors = (promiseRejectionEvent) => {
-        alert('Some error occured');
+        console.log('Some error occured');
         //console.log(promiseRejectionEvent);
     }
 

@@ -1,10 +1,47 @@
-  .item {
-    color:black;
-  }
+.item {
+    background-color: lightyellow;
+    color: black;
+    min-height: 100px;
+    position: relative;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    display: flex;
+    align-items: start;
+    margin-bottom: 16px;
+}
 
-  
-  .item img {
+.likesContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 8px 0 0 8px;
+}
+
+.post {
+    margin: 12px 0 8px 12px;
+    align-self: baseline;
+    font-weight: 400;
+    font-size: 18px;
+    width: 70%;
+}
+
+.userImg {
     width: 50px;
     height: 50px;
     border-radius: 30px;
-      }
+}
+
+.deleteIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 28px;
+    width: 28px;
+    fill: grey;
+    margin: 12px 12px 0 0;
+    cursor: pointer;
+}
+
+svg {
+
+}
+
