@@ -6,12 +6,9 @@ import {maxLengthCreator, required} from "../../utils/validators/validators";
 import {Textarea} from "../../Common/FormsControls/FormsControls";
 
 
-const MyPosts = React.memo(props => {
-    //Functional Component
+const MyPosts = React.memo(({profilePage, createPostApi}) => {
 
-    let {profilePage, createPostApi} = props;
-
-    let postsElements = profilePage.posts.map(p => <Post body={p.body} likes={p.likes}
+    const postsElements = profilePage.posts.map(p => <Post body={p.body} likes={p.likes}
                                                          key={p.key} id={p.key}/>);
 
     return <div className={classes.postsBlock}>

@@ -21,7 +21,7 @@ export const profileAPI = {
         return instance.get(`profile/status/` + userId)
     },
     updateStatus(status) {
-        return instance.put(`profile/status`, { status: status });
+        return instance.put(`profile/status`, {status: status});
     },
     savePhoto(photoFile) {
         const formData = new FormData();
@@ -38,7 +38,7 @@ export const authAPI = {
         return instance.get(`auth/me`)
     },
     login(email, password, captcha = null) {
-        return instance.post(`auth/login`, { email, password, rememberMe: true, captcha })
+        return instance.post(`auth/login`, {email, password, rememberMe: true, captcha})
     },
     logout() {
         return instance.delete(`auth/login`);
@@ -57,20 +57,13 @@ export const usersAPI = {
             .then(response => {
                 return response.data;
             });
-    }
-    ,
+    },
     follow(userId) {
         return instance.post(`follow/${userId}`)
-    }
-    ,
+    },
     unfollow(userId) {
         return instance.delete(`follow/${userId}`)
     }
-    ,
-    getProfile(userId) {
-        console.log('Obsolete method, please use profileAPI object')
-        return profileAPI.getProfile(userId);
-    },
 }
 
 export const postsAPI = {
