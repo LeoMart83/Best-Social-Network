@@ -11,7 +11,6 @@ const ProfileStatusWithHooks = (props) => {
         setStatus(e.currentTarget.value);
     }
 
-
     return (
         <div className={classes.profileStatus}>
             {!editMode &&

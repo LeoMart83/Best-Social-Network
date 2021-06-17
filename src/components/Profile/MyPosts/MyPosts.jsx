@@ -1,28 +1,30 @@
 import React from "react";
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../utils/validators/validators";
-import {Textarea} from "../../Common/FormsControls/FormsControls";
+import { Field, reduxForm } from "redux-form";
+import { maxLengthCreator, required } from "../../utils/validators/validators";
+import { Textarea } from "../../Common/FormsControls/FormsControls";
 
 
-const MyPosts = React.memo(({profilePage, createPostApi}) => {
+const MyPosts = React.memo(({ posts, createPost }) => {
 
-    const postsElements = profilePage.posts.map(p => <Post body={p.body} likes={p.likes}
-                                                         key={p.key} id={p.key}/>);
+    const postsElements = posts.map(p => <Post body={p.body} likes={p.likes}
+        key={p.key} id={p.key} />);
 
-    return <div className={classes.postsBlock}>
-        <h3> My Posts </h3>
-        <AddPostFormRedux onSubmit={(values) => {
-            createPostApi(values.newPostText)
-        }}/>
-        <div className={classes.posts}>
-            {postsElements}
+    return (
+        <div className={classes.postsBlock}>
+            <h3> My Posts </h3>
+            <AddPostFormRedux onSubmit={(values) => {
+                createPost(values.newPostText)
+            }} />
+            <div className={classes.posts}>
+                {postsElements}
+            </div>
         </div>
-    </div>
+    )
 });
 
-const maxLength50 = maxLengthCreator(500)
+const maxLength = maxLengthCreator(100);
 
 const AddNewPostForm = (props) => {
 
@@ -30,7 +32,7 @@ const AddNewPostForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             <div>
                 <Field component={Textarea} name='newPostText' placeholder='Enter new post'
-                       validate={[required, maxLength50]}/>
+                    validate={[required, maxLength]} />
             </div>
             <div>
                 <button>Add post</button>
@@ -39,6 +41,6 @@ const AddNewPostForm = (props) => {
     )
 }
 
-const AddPostFormRedux = reduxForm({form: 'profileAddNewPostForm'})(AddNewPostForm);
+const AddPostFormRedux = reduxForm({ form: 'profileAddNewPostForm' })(AddNewPostForm);
 
 export default MyPosts;

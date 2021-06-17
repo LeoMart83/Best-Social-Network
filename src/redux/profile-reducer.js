@@ -1,13 +1,13 @@
 import shortId from "shortid";
-import {postsAPI, profileAPI, usersAPI} from "../api/api";
-import {stopSubmit} from "redux-form";
+import { postsAPI, profileAPI, usersAPI } from "../api/api";
+import { stopSubmit } from "redux-form";
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = 'DELETE_POST';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
-const SET_POSTS ='SET_POSTS';
+const SET_POSTS = 'SET_POSTS';
 
 let initialState = {
     posts: [],
@@ -29,34 +29,33 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: [
-                    {key: action.postData.key, body: action.postData.body, likes: action.postData.likes},
+                    { key: action.postData.key, body: action.postData.body, likes: action.postData.likes },
                     ...state.posts
                 ],
             }
         case SET_USER_PROFILE:
-            return {...state, profile: action.profile}
+            return { ...state, profile: action.profile }
         case SET_STATUS:
-            return {...state, status: action.status}
+            return { ...state, status: action.status }
         case DELETE_POST:
-            return {...state, posts: state.posts.filter(p => p.key !== action.postId)}
+            return { ...state, posts: state.posts.filter(p => p.key !== action.postId) }
         case SAVE_PHOTO_SUCCESS:
-            return {...state, profile: {...state.profile, photos: action.photos}}
+            return { ...state, profile: { ...state.profile, photos: action.photos } }
         default:
             return state;
     }
 }
 
-export const setPosts = (posts) => ({type: SET_POSTS, posts}); // Works with requestPosts
-
-export const addPost = (postData) => ({type: ADD_POST, postData});
-export const setProfile = (profile) => ({type: SET_USER_PROFILE, profile});
-export const setStatus = (status) => ({type: SET_STATUS, status});
-export const deletePost = (postId) => ({type: DELETE_POST, postId});
-export const savePhotoSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos});
+export const setPosts = (posts) => ({ type: SET_POSTS, posts });
+export const addPost = (postData) => ({ type: ADD_POST, postData });
+export const setProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
+export const setStatus = (status) => ({ type: SET_STATUS, status });
+export const deletePost = (postId) => ({ type: DELETE_POST, postId });
+export const savePhotoSuccess = (photos) => ({ type: SAVE_PHOTO_SUCCESS, photos });
 
 //Thunks
 export const getUserProfile = (userId) => async (dispatch) => {
-    let response = await profileAPI.getProfile(userId);
+    const response = await profileAPI.getProfile(userId);
     dispatch(setProfile(response.data));
 }
 
@@ -71,39 +70,43 @@ export const updateStatus = (status) => async (dispatch) => {
         if (response.data.resultCode === 0) {
             dispatch(setStatus(status));
         }
-    } catch(error) {
-        //Откатить ситуацию
+    } catch (error) {
+        window.alert(`Error ${error?.response?.status} occured, ${error?.response?.data?.message}`);
+        // Откатить ситуацию
     }
 }
 
-export const savePhoto = (file) => async (dispatch) => {
-    let response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0) {
+// Thunk for updating profile photo
+export const updateProfilePhoto = (file) => async (dispatch) => {
+    try {
+        const response = await profileAPI.savePhoto(file);
         dispatch(savePhotoSuccess(response.data.data.photos));
+    } catch (error) {
+        window.alert(`Error ${error?.response?.status} occured, ${error?.response?.data?.message}`);
     }
 }
 
-export const saveProfile = (profile) => async (dispatch, getState) => {
-    const userId = getState().auth.userId;
-    const response = await profileAPI.saveProfile(profile);
-    if (response.data.resultCode === 0) {
-        dispatch(getUserProfile(userId));
-    } else {
-        dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}));
-        return Promise.reject(response.data.messages[0]);
+// Thunk for updating profile information
+export const updateProfile = (profile) => async (dispatch) => {
+    try {
+        await profileAPI.updateProfile(profile);
+        dispatch(getUserProfile(profile.userId));
+    } catch (error) {
+        window.alert(`Error ${error?.response?.status} occured, ${error?.response?.data?.message}`);
     }
 }
 
-
-// requestPosts thunk, для получения постов.
-export const requestPosts = () => async (dispatch, getState) => {
-    //const userId = getState().auth.userId;
-    const userId = 15340;
-    const response = await postsAPI.getPosts(userId);
-    dispatch(setPosts(response.data))
+// Thunk for getting posts
+export const requestPosts = (id) => async (dispatch) => {
+    try {
+        const response = await postsAPI.getPosts(id);
+        dispatch(setPosts(response.data));
+    } catch (error) {
+        window.alert(`Error ${error?.response?.status} occured, ${error?.response?.data?.message}`);
+    }
 }
 
-export const createPostApi = (body) => async (dispatch, getState) => {
+export const createPost = (body) => async (dispatch, getState) => {
     //const userId = getState().auth.userId;
     const userId = 15340;
     const response = await postsAPI.createPost(userId, body);

@@ -1,11 +1,3 @@
-
-.profilePicture {
-    width: 250px;
-    height: 250px;
-    margin: 10px;
-    border-radius: 20%;
-}
-
 .contact {
     padding-left: 10px;
 }
@@ -16,12 +8,10 @@
     color: red;
 }
 
-.descriptionBlock {
-    padding: 10px;
-}
 .photoChange{
     font-size: 20px;
     font-weight: 400;
+    display: none;
 }
 
 .profileInformation{
@@ -33,8 +23,34 @@
     margin: 5px;
 }
 
-.profileStatus{
+.profileStatus {
     font-style: italic;
     font-size: 20px;
     text-align: center;
+}
+
+.descriptionBlock {
+    display: flex;
+    padding: 10px;
+}
+
+.profilePictureWrapper {
+    padding: 12px;
+    max-height: 300px;
+    border-radius: 20%;
+    background: whitesmoke;
+    border: 1px solid lightgray;
+}
+
+.profilePicture {
+    border-radius: 20%;
+    max-height: 300px;
+}
+
+.profileInfoWrapper {
+    border-radius: 4%;
+margin-left: 24px;
+padding: 8px;
+/* background: rgb(255, 244, 182); */
+border: 1px solid lightgray;
 }

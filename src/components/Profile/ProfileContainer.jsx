@@ -1,67 +1,59 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Profile from "./Profile";
-import {connect} from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import {
-    getStatus,
     getUserProfile,
+    getStatus,
     requestPosts,
-    savePhoto,
-    saveProfile,
-    updateStatus
+    updateProfile,
+    updateStatus,
+    updateProfilePhoto,
+    createPost,
 } from "../../redux/profile-reducer";
-import {withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {compose} from "redux";
+import { withRouter } from "react-router-dom";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
+const ProfileContainer = ({ match, profile, status, posts, updateProfile, updateStatus, updateProfilePhoto, isAuth, createPost }) => {
+    
+    const dispatch = useDispatch();
+    const userId = match.params.userId;
 
+    useEffect(() => {
+        dispatch(getUserProfile(userId));
+        dispatch(getStatus(userId));
+    }, [userId]);
 
-class ProfileContainer extends React.Component {
+    useEffect(() => {
+        dispatch(requestPosts(userId))
+    }, [userId]);
 
-    refreshProfile() {
-        let userId = 15340;
-        this.props.getUserProfile(userId);
-        this.props.getStatus(userId);
-    }
-
-
-    componentDidMount() {
-        this.refreshProfile();
-        this.props.requestPosts();
-    }
-
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     if (this.props.match.params.userId !== prevProps.match.params.userId) {
-    //         this.refreshProfile();
-    //     }
-    // }
-
-    render() {
-        return (
-            <Profile {...this.props}
-                     isOwner={!this.props.match.params.userId}
-                     profile={this.props.profile}
-                     status={this.props.status}
-                     updateStatus={this.props.updateStatus}
-                     savePhoto={this.props.savePhoto}
-                     requestPosts={this.props.requestPosts}/>
-
-        )
-    }
-
+    return (
+        <Profile
+            profile={profile}
+            status={status}
+            posts={posts}
+            isOwner={userId}
+            updateProfile={updateProfile}
+            updateStatus={updateStatus}
+            updateProfilePhoto={updateProfilePhoto}
+            createPost={createPost}
+        />
+    )
 }
 
-let mapState = (state) => {
+const mapStateToProps = (state) => {
     return ({
         profile: state.profilePage.profile,
         status: state.profilePage.status,
-        authorizedUserId: state.auth.userId,
+        posts: state.profilePage.posts,
         isAuth: state.auth.isAuth,
     })
 
 }
 
 export default compose(
-    connect(mapState, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile, requestPosts}),
+    connect(mapStateToProps, { getUserProfile, getStatus, updateStatus, updateProfilePhoto, updateProfile, createPost, }),
     withRouter,
     //withAuthRedirect,
 )(ProfileContainer);

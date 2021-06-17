@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import classes from './ProfileInfo.module.css';
 import Preloader from '../../Common/Preloader/Preloader';
 import user from '../../../Assets/Images/user.png';
@@ -6,53 +7,55 @@ import { useState } from "react";
 import ProfileDataForm from "./ProfileDataForm";
 
 
-const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, saveProfile }) => {
+const ProfileInfo = ({ profile, status, updateStatus, updateProfilePhoto, isOwner, updateProfile }) => {
 
-    let [editMode, setEditMode] = useState(false);
-
-    if (!profile) {
-        return <Preloader />
-    }
+    const [editMode, setEditMode] = useState(false);
+    const inputFile = useRef(null);
 
     const onMainPhotoSelected = (e) => {
         if (e.target.files.length) {
-            savePhoto(e.target.files[0]);
+            updateProfilePhoto(e.target.files[0]);
         }
-    }
+    };
 
     const onSubmit = (formData) => {
-        saveProfile(formData).then(() => {
+        updateProfile(formData).then(() => {
             setEditMode(false);
         });
+    };
 
+    const onPhotoClick = () => {
+        inputFile.current.click();
+    };
+
+    const ProfileInfo = () => {
+        return (<>
+            <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
+            <div className={classes.descriptionBlock}>
+
+                <div className={classes.profilePictureWrapper} onClick={() => onPhotoClick()}>
+                    <img src={profile.photos.large ? profile.photos.large : user} className={classes.profilePicture} />
+                </div>
+
+                <div className={classes.profileInfoWrapper}>
+                    <div className={classes.photoChange}>Change photo: <input type={'file'} ref={inputFile} onChange={onMainPhotoSelected} /></div>
+                    {editMode
+                        ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
+                        : <ProfileData goToEditMode={() => {
+                            setEditMode(true)
+                        }} profile={profile} isOwner={isOwner} />}
+                </div>
+            </div>
+        </>
+        )
     }
 
-
-    return (
-        <div className={classes.descriptionBlock}>
-
-            <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
-
-            <img src={profile.photos.large ? profile.photos.large : user} className={classes.profilePicture} />
-            {isOwner && <div className={classes.photoChange}>Change photo: <input type={'file'} onChange={onMainPhotoSelected} /></div>}
-            <hr />
-
-
-            {editMode
-                ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
-                : <ProfileData goToEditMode={() => {
-                    setEditMode(true)
-                }} profile={profile} isOwner={isOwner} />}
-
-
-
-        </div>
-    )
+    return (profile ? ProfileInfo() : <Preloader />)
 }
 
 const ProfileData = ({ profile, isOwner, goToEditMode }) => {
     return <div className={classes.profileInformation}>
-        <p>Personal profile information:</p>
+        <p>Profile info:</p>
 
         {isOwner && <div>
 
@@ -74,13 +77,12 @@ const ProfileData = ({ profile, isOwner, goToEditMode }) => {
 
         <div>
             <b>Contacts:</b> {Object.keys(profile.contacts).map(key => {
-                 return profile.contacts[key] ? <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]} /> : null 
+                return profile.contacts[key] ? <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]} /> : null
             })}
         </div>
         <button onClick={goToEditMode}>Edit</button>
     </div>
 }
-
 
 const Contact = ({ contactTitle, contactValue }) => {
     return <div className={classes.contact}><b>{contactTitle}</b>: <a href={contactValue} target='_blank'>{contactValue}</a> </div>

@@ -3,13 +3,15 @@ import { NavLink } from "react-router-dom";
 import msg from '../../Assets/Images/msg.svg';
 import user from '../../Assets/Images/user.svg';
 import users from '../../Assets/Images/users.svg';
+import { connect } from "react-redux";
 
-const Navbar = (props) => {
+const Navbar = ({userId}) => {
+
     return (
         <nav className={classes.nav}>
             <div className={classes.item}>
                 <img src={user} alt=""/>
-                <NavLink to='/profile' activeClassName={classes.activeLink}>Profile</NavLink>
+                <NavLink to={`/profile/${userId}`} activeClassName={classes.activeLink}>Profile</NavLink>
             </div>
             <div className={classes.item}>
                 <img src={msg} alt=""/>
@@ -24,4 +26,11 @@ const Navbar = (props) => {
             </div>
         </nav>)
 }
-export default Navbar;
+
+const mapStateToProps = (state) => {
+    return ({
+        userId: state.auth.userId,
+    })
+}
+
+export default connect (mapStateToProps, null) (Navbar);

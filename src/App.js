@@ -12,7 +12,6 @@ import store from "./redux/redux-store";
 import { withSuspense } from "./hoc/withSuspense";
 import { Redirect, Switch } from "react-router";
 
-
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
@@ -45,15 +44,17 @@ class App extends Component {
                         <Navbar />
                         <div className='app-wrapper-content'>
 
-                            <Route exact path='/'
-                                render={() => <Redirect to={'/profile'} />} />
+                        <Route path='/profile/:userId?'
+                                render={withSuspense(ProfileContainer)} />
+
+                            {/* <Route exact path='/'
+                                render={() => <Redirect to={'/profile'} />} /> */}
 
                             <Route path='/dialogs'
                                 render={withSuspense(DialogsContainer)} />
 
 
-                            <Route path='/profile/:userId?'
-                                render={withSuspense(ProfileContainer)} />
+
 
                             <Route path='/users'
                                 render={() => <UsersContainer />} />

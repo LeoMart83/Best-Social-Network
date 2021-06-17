@@ -26,6 +26,7 @@ export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
 
 //Thunks
 export const initializeApp = () => (dispatch) => {
+    console.log('promise');
     let promise = dispatch(getAuthMe());
     Promise.all([promise])
         .then(() => {
